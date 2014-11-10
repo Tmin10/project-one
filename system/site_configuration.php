@@ -1,6 +1,7 @@
 <?php
 class conf{
-    const BASE_URL = "/project-one/";
+    const SITE_NAME = 'localhost';
+    const BASE_URL = "/Project-one/";
     const SITE_LANG = 'ru';
     const DB_USER_NAME = '';
     const DB_PASSWORD = '';

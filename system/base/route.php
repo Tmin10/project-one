@@ -5,7 +5,7 @@ class Route
 
 	static function start()
 	{
-		// контроллер и действие по умолчанию
+        // контроллер и действие по умолчанию
 		$controller_name = 'default';
 		$action_name = 'index';
 		
@@ -22,27 +22,38 @@ class Route
             $request=substr($_SERVER['REQUEST_URI'], 1);
         }
         
-        if (preg_match("/^id[0-9]+$/", $request))
+        /*if (preg_match("/^id[0-9]+$/", $request))
         {
             $controller_name='user';
             $action_name='show';
             $param=substr($request, 2);
         }
         else
-        {
+        {*/
             if (!(strpos($request, '?')===FALSE))
-            $request=strstr($request, '?', true);
+            {
+               $request=strstr($request, '?', true);
+            }
             if (!(strpos($request, '#')===FALSE))
+            {
                 $request=strstr($request, '#', true);
+            }
+            
             $request=explode('/', $request, 3);
 
             if (isset($request[0])&&$request[0]!='')
+            {
                 $controller_name=$request[0];
+            }
             if (isset($request[1])&&$request[1]!='')
-                $action_name=$request[1];
+            {
+               $action_name=$request[1];
+            }
             if (isset($request[2])&&$request[2]!='')
-                $param=$request[2];
-        }
+            {
+               $param=$request[2];
+            }
+        //}
         
 		// добавляем префиксы
 		$model_name = $controller_name.'_model';
@@ -50,13 +61,15 @@ class Route
 		$action_name = $action_name.'_action';
 
 		
-		/*echo "Model: $model_name <br>";
-		echo "Controller: $controller_name <br>";
-		echo "Action: $action_name <br>";
-        */
+		echo "Model: $model_name<br>\r\n";
+		echo "Controller: $controller_name<br>\r\n";
+		echo "Action: $action_name<br>\r\n";
+        
         if (isset($param))
-            echo "Param: $param <br>";
-
+        {
+           echo "Param: $param <br>";
+        }
+        //*/
         //Получим список всех файлов контроллеров и моделей, которые у нас есть, чтобы пользователь не смог подключить какой иной файл.
         $models = glob("system/models/*.php"); //модели
         $controllers = glob("system/controllers/*.php"); //представления
@@ -72,7 +85,9 @@ class Route
             {
                 include "system/models/".$model_file;
                 if (!class_exists($model_name))
-                    throw New Exception('Model_class_not_found');
+                {
+                   throw New Exception('Model_class_not_found');
+                }
             }
         }
 		// подцепляем файл с классом контроллера
@@ -85,7 +100,9 @@ class Route
             {
                 include "system/controllers/".$controller_file;
                 if (!class_exists($controller_name))
+                {
                     throw New Exception('Controller_class_not_found');
+                }
             }
             else
             {
@@ -99,14 +116,22 @@ class Route
 		// создаем контроллер
 		$controller = new $controller_name;
 		$action = $action_name;
-		
+        
+        var_dump($controller);
+        var_dump($action);
+        var_dump(method_exists($controller, $action));
+		die();
 		if (method_exists($controller, $action))
 		{
 			// вызываем действие контроллера
 			if (isset($param))
-                $controller->$action($param);
+            {
+               $controller->$action($param);
+            }
             else
-                $controller->$action();
+            {
+               $controller->$action();
+            }
 		}
 		else
 		{
@@ -116,4 +141,3 @@ class Route
 	}
     
 }
-?>

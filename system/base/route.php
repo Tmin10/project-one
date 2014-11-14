@@ -86,9 +86,17 @@ class Route
                 include "system/models/".$model_file;
                 if (!class_exists($model_name))
                 {
-                   throw New Exception('Model_class_not_found');
+                   throw New Exception('model_class_not_found');
                 }
             }
+            else
+            {
+                throw new Exception('model_not_found');
+            }
+        }
+        else
+        {
+             throw new Exception('model_file_not_found');
         }
 		// подцепляем файл с классом контроллера
 		$controller_file = strtolower($controller_name).'.php';
@@ -101,7 +109,7 @@ class Route
                 include "system/controllers/".$controller_file;
                 if (!class_exists($controller_name))
                 {
-                    throw New Exception('Controller_class_not_found');
+                    throw New Exception('controller_class_not_found');
                 }
             }
             else

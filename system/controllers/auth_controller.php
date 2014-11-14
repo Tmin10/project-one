@@ -6,7 +6,7 @@ class auth_controller extends Controller{
    
    function __construct()
    {
-      $this->model = new ajax_model();
+      $this->model = new auth_model();
       $this->view = new View();
    }
    
@@ -15,9 +15,9 @@ class auth_controller extends Controller{
         
    }
    
-   function mail_action()
+   function mail_action($id)
    {
-        
+        $data = $this->model->mail_auth($id);
    }
    
 }

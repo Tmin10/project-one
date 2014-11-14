@@ -2,7 +2,7 @@
 
 class Route
 {
-
+   
 	static function start()
 	{
         // контроллер и действие по умолчанию
@@ -61,13 +61,13 @@ class Route
 		$action_name = $action_name.'_action';
 
 		
-		echo "Model: $model_name<br>\r\n";
+		/*echo "Model: $model_name<br>\r\n";
 		echo "Controller: $controller_name<br>\r\n";
 		echo "Action: $action_name<br>\r\n";
         
         if (isset($param))
         {
-           echo "Param: $param <br>";
+           echo "Param: $param<br>";
         }
         //*/
         //Получим список всех файлов контроллеров и моделей, которые у нас есть, чтобы пользователь не смог подключить какой иной файл.
@@ -125,10 +125,6 @@ class Route
 		$controller = new $controller_name;
 		$action = $action_name;
         
-        var_dump($controller);
-        var_dump($action);
-        var_dump(method_exists($controller, $action));
-		die();
 		if (method_exists($controller, $action))
 		{
 			// вызываем действие контроллера

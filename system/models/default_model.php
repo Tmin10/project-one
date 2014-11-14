@@ -12,4 +12,11 @@ class default_model extends model {
         return $return;
     }
     
+    public function get_mail_auth_random()
+	{	
+       $rnd=rand(10000, getrandmax());
+       $_SESSION['mail_auth_random']=$rnd;
+       return $rnd;
+    }
+    
 }

@@ -20,10 +20,10 @@ class default_controller extends Controller{
               $data['login_error']=$_SESSION['login_error'];
               unset($_SESSION['login_error']);
            }
+           $data['mail_auth_rnd']=$this->model->get_mail_auth_random();
            $this->view->render('unreg_view.php', 'unreg_temp.php', $data);
         }
 	}
   
 
 }
-?>
